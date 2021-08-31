@@ -24,6 +24,10 @@ let app = {
         addVideogameButtonElement.addEventListener('click', app.handleClickToAddVideogame);
         
         // TODO
+        const formElement = document.querySelector('#addVideogameForm');
+        formElement.addEventListener("submit", app.handleNewVideogameFormSubmit);
+
+
     },
 
     handleVideogameSelected: function(evt) {
@@ -119,9 +123,6 @@ let app = {
         // https://getbootstrap.com/docs/4.4/components/modal/#modalshow
         // jQuery obligatoire ici
         $('#addVideogameModal').modal('show');
-
-        const formElement = document.querySelector('#addVideogameForm');
-        formElement.addEventListener("submit", app.handleNewVideogameFormSubmit);
     },
     
     handleNewVideogameFormSubmit:function(evt){
