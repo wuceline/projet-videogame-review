@@ -14,7 +14,7 @@ class VideogameController extends Controller
     public function read($id) {
         // Get item or send 404 response if not
         $item = Videogame::find($id);
-        
+
         // Si on a un résultat
         if (!empty($item)) {
             // Return JSON of this list
@@ -50,5 +50,33 @@ class VideogameController extends Controller
             // HTTP status code 404 Not Found
             return $this->sendEmptyResponse(404);
         }
+    }
+
+    public function list() {
+
+        $videogamesList = Videogame::all();
+
+        return $this->sendJsonResponse($videogamesList,200);
+
+    }
+
+    public function post(Request $request){
+        if ($request->filled(['name', 'editor'])) {
+            $videogame = new Videogame();
+
+            $videogame->name = $request->input('name');
+            $videogame->editor = $request->input('editor');
+            $videogame->status = 1;
+
+            $isInserted = $videogame->save();
+        }else{
+            return response("",400);
+        };
+
+        if ($isInserted){
+            return response()->json($videogame, 201);
+        }else{
+            return response()->json(['error'=>'Internal Server Error'], 500);
+        };
     }
 }
