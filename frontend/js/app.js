@@ -10,6 +10,7 @@ let app = {
         // On appelle la méthode s'occupant de charger tous les jeux vidéo
         app.loadVideoGames();
     },
+
     addAllEventListeners: function() {
         // On récupère l'élément <select> des jeux vidéo
         
@@ -24,6 +25,7 @@ let app = {
         
         // TODO
     },
+
     handleVideogameSelected: function(evt) {
         // Récupérer la valeur du <select> (id du videogame)
         videoGameId = evt.currentTarget.value;
@@ -119,10 +121,10 @@ let app = {
         $('#addVideogameModal').modal('show');
 
         const formElement = document.querySelector('#addVideogameForm');
-        formElement.addEventListener("submit", app.handleNewTaskFormSubmit);
+        formElement.addEventListener("submit", app.handleNewVideogameFormSubmit);
     },
     
-    handleNewTaskFormSubmit:function(evt){
+    handleNewVideogameFormSubmit:function(evt){
         evt.preventDefault();
         formElement = evt.currentTarget;
 
@@ -163,7 +165,7 @@ let app = {
             }
         })
         .then(function(newVideogame){
-            inputNameElement.value="";
+            inputNameElement.value = "";
             inputEditorElement.value = "";
 
             
