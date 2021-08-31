@@ -58,6 +58,7 @@ let app = {
                     const reviewContainer = document.querySelector('#review');
 
                     // Supprimer les reviews
+                        
                     // reviewContainer.removeChild(reviewContainer);
                     
                     // AUTHOR
