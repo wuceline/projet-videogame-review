@@ -112,6 +112,7 @@ let app = {
 
         
     },
+
     handleClickToAddVideogame: function(evt) {
         // https://getbootstrap.com/docs/4.4/components/modal/#modalshow
         // jQuery obligatoire ici
@@ -124,7 +125,6 @@ let app = {
     handleNewTaskFormSubmit:function(evt){
         evt.preventDefault();
         formElement = evt.currentTarget;
-        console.log(formElement);
 
         const inputNameElement = formElement.querySelector('#inputName');
         const videogameName = inputNameElement.value;
@@ -150,8 +150,10 @@ let app = {
 
         fetch(app.apiRootUrl+"/videogames", config)
         .then(function(response){
+
             if(response.status==201){
                 alert('Félicitations !!!!!!!!!!!! Votre jeu vidéo a bien été créé!!!!!!!')
+                return response.json();
             }else if(response.status==400){
                 alert('Bouuuuuh !!!! Il manque des informations !!!!');
                 window.stop();
@@ -159,12 +161,26 @@ let app = {
                 alert('Internal Servor Error');
                 window.stop();
             }
-        }).currentTarget;
+        })
+        .then(function(newVideogame){
+            $('#addVideogameModal').modal('hide');
+            let selectElement = document.querySelector('#videogameId');
+            let optionElement = document.createElement("option");
+
+            optionElement.textContent = newVideogame.name;
+
+            optionElement.value = newVideogame.id;
+            selectElement.append(optionElement);
+
+        });
+
+
 
 
 
 
     },
+
     loadVideoGames: function() {
         // Charger toutes les données des videogames
         let config = {
@@ -191,7 +207,6 @@ let app = {
         }
         );
 
-            // Ajouter une balise <option> par videogame
     }
 };
 
