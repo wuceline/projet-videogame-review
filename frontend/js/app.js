@@ -30,6 +30,7 @@ let app = {
         console.log(videoGameId);
 
         // Vider le contenu de div#review
+        
         // const reviewContainer = document.querySelector('#review');
         // reviewContainer.removeChild();
 
@@ -103,9 +104,82 @@ let app = {
         // https://getbootstrap.com/docs/4.4/components/modal/#modalshow
         // jQuery obligatoire ici
         $('#addVideogameModal').modal('show');
+
+        const formElement = document.querySelector('#addVideogameForm');
+        formElement.addEventListener("submit", app.handleNewTaskFormSubmit);
+    },
+    
+    handleNewTaskFormSubmit:function(evt){
+        evt.preventDefault();
+        formElement = evt.currentTarget;
+        console.log(formElement);
+
+        const inputNameElement = formElement.querySelector('#inputName');
+        const videogameName = inputNameElement.value;
+        
+        const inputEditorElement = formElement.querySelector('#inputEditor');
+        const videogameEditor = inputEditorElement.value;
+
+        const data = {
+            name : videogameName,
+            editor : videogameEditor
+        };
+
+        const httpHeaders = new Headers();
+        httpHeaders.append("Content-Type", "application/json");
+
+        let config = {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            headers: httpHeaders,
+            body: JSON.stringify(data),
+        };
+
+        fetch(app.apiRootUrl+"/videogames", config)
+        .then(function(response){
+            if(response.status==201){
+                alert('Félicitations !!!!!!!!!!!! Votre jeu vidéo a bien été créé!!!!!!!')
+            }else if(response.status==400){
+                alert('Bouuuuuh !!!! Il manque des informations !!!!');
+                window.stop();
+            }else if(response.status==500){
+                alert('Internal Servor Error');
+                window.stop();
+            }
+            
+        });
+
+
+
+
     },
     loadVideoGames: function() {
         // Charger toutes les données des videogames
+        let config = {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache'
+        };
+
+        fetch(app.apiRootUrl+"/videogames",config)
+        .then(function(response){
+            return response.json();        
+        })
+        .then(function(videogames){
+            let selectElement = document.querySelector('#videogameId')
+            
+            for(let videogame of videogames){
+                let optionElement = document.createElement("option");
+                optionElement.value = videogame.id;
+                optionElement.textContent = videogame.name;
+
+                selectElement.append(optionElement);
+
+            };
+        }
+        );
+
             // Ajouter une balise <option> par videogame
     }
 };
