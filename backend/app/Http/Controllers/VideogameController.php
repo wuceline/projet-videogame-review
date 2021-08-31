@@ -38,9 +38,10 @@ class VideogameController extends Controller
         // Si on a un résultat
         if (!empty($item)) {
             // Retrieve all related Reviews (thanks to Relationships)
-            // $reviews = $item->reviews->load(['videogame', 'platform']);
+            $reviews = $item->reviews->load(['videogame', 'platform']);
             // But, relationships with videogame & plaftorm are not configured yet
             $reviews = $item->reviews;
+
 
             // Return JSON of this list
             return $this->sendJsonResponse($reviews, 200);

@@ -60,7 +60,7 @@ let app = {
                     // Dupliquer la template #reviewTemplate et personnaliser son contenu avec les données
                     const templateElement = document.querySelector('#reviewTemplate');
                     const templateClonedElement = templateElement.content.cloneNode(true);
-                    
+
                     const reviewElement = templateClonedElement.querySelector('.reviewContainer');
                     // AUTHOR
                     reviewAuthorElement = reviewElement.querySelector('.reviewAuthor');
@@ -90,6 +90,18 @@ let app = {
 
                     reviewLifetimeNoteElement = reviewElement.querySelector('.reviewLifetime');
                     reviewLifetimeNoteElement.textContent = review.lifetime_note;
+
+                    //VIDEOGAME
+                    reviewVideogameEditorElement = reviewElement.querySelector('.reviewEditor');
+                    reviewVideogameEditorElement.textContent = review.videogame.editor;
+
+                    reviewVideogameNameElement = reviewElement.querySelector('.reviewVideogame');
+                    reviewVideogameNameElement.textContent = review.videogame.name;
+
+                    // PLATFORM
+                    reviewPlatformElement = reviewElement.querySelector('.reviewPlatform');
+                    reviewPlatformElement.textContent=review.platform.name;
+
 
                     // Ajouter dans le DOM
                     reviewsListContainer.prepend(reviewElement);
