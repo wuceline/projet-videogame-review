@@ -47,21 +47,21 @@ let app = {
           return response.json();
         })
         .then(function(reviews){
-                console.log(reviews);
+                console.log(reviews);                  
 
 
+                // Supprimer les reviews
+                const reviewsListContainer = document.querySelector('#review');
+                reviewsListContainer.innerHTML="";
+
+            
                 for(const review of reviews){
+
                     // Dupliquer la template #reviewTemplate et personnaliser son contenu avec les données
                     const templateElement = document.querySelector('#reviewTemplate');
                     const templateClonedElement = templateElement.content.cloneNode(true);
-
-                    const reviewElement = templateClonedElement.querySelector('.reviewContainer');
-                    const reviewContainer = document.querySelector('#review');
-
-                    // Supprimer les reviews
-                        
-                    // reviewContainer.removeChild(reviewContainer);
                     
+                    const reviewElement = templateClonedElement.querySelector('.reviewContainer');
                     // AUTHOR
                     reviewAuthorElement = reviewElement.querySelector('.reviewAuthor');
                     reviewAuthorElement.textContent = review.author;
@@ -92,7 +92,7 @@ let app = {
                     reviewLifetimeNoteElement.textContent = review.lifetime_note;
 
                     // Ajouter dans le DOM
-                    reviewContainer.prepend(reviewElement);
+                    reviewsListContainer.prepend(reviewElement);
                 };
 
             
@@ -147,8 +147,7 @@ let app = {
                 alert('Internal Servor Error');
                 window.stop();
             }
-            
-        });
+        }).currentTarget;
 
 
 
