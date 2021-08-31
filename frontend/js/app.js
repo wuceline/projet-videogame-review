@@ -126,10 +126,10 @@ let app = {
         evt.preventDefault();
         formElement = evt.currentTarget;
 
-        const inputNameElement = formElement.querySelector('#inputName');
+        let inputNameElement = formElement.querySelector('#inputName');
         const videogameName = inputNameElement.value;
         
-        const inputEditorElement = formElement.querySelector('#inputEditor');
+        let inputEditorElement = formElement.querySelector('#inputEditor');
         const videogameEditor = inputEditorElement.value;
 
         const data = {
@@ -163,6 +163,10 @@ let app = {
             }
         })
         .then(function(newVideogame){
+            inputNameElement.value="";
+            inputEditorElement.value = "";
+
+            
             $('#addVideogameModal').modal('hide');
             let selectElement = document.querySelector('#videogameId');
             let optionElement = document.createElement("option");
