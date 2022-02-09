@@ -23,7 +23,7 @@ let app = {
         // On ajoute l'écouteur pour l'event "click"
         addVideogameButtonElement.addEventListener('click', app.handleClickToAddVideogame);
         
-        // TODO
+
         const formElement = document.querySelector('#addVideogameForm');
         formElement.addEventListener("submit", app.handleNewVideogameFormSubmit);
 
